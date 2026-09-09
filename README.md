@@ -13,6 +13,17 @@ zernike-ppi demo --channels shape,charge,hydrophobicity
 pytest
 ```
 
+## Graphical interface
+
+Install the optional local interface and start it:
+
+```bash
+pip install -e ".[ui]"
+streamlit run app.py
+```
+
+Upload either one bound complex PDB (then choose two chains) or two PDB files, select the interacting chains, and click **Run analysis**. The page shows the heatmap, 3D diagnostic, patch-pair table, scientific diagnostics, and download controls. It uses the automatic surface generator by default, so DMS is not required.
+
 The MVP keeps channel descriptors separate and combines normalized Euclidean distances with user weights. Lower scores indicate better complementarity.
 
 | Channel | Surface field | Expected relation |
@@ -55,6 +66,16 @@ Scores are candidate interface complementarity, not binding probabilities or aff
 ## Attribution
 
 Please cite the original Zernike2D repository and Milanetti et al. (2021) when using this continuation. The original student/professor project remains the scientific and software baseline.
+
+## Geometric interface complementarity map
+
+`interface-map` analyzes an already bound protein pair, rather than attempting blind docking. It uses DMS-style surfaces (`x,y,z,nx,ny,nz`) to identify points closer than 3 Å, forms 6 Å local patches, finds the facing B patch along A's outward normal, evaluates shape-channel Zernike complementarity, and projects the patch-pair scores onto a global A→B interface plane. The plane is an analysis coordinate system; it does not assume that the physical interface is flat.
+
+```bash
+zernike-ppi interface-map --surface-a chain_A.csv --surface-b chain_B.csv --interface-distance 3 --patch-radius 6 --sample-every 10 --grid-spacing 0.5 --output interface_map/
+```
+
+The output includes interface masks, paired patch diagnostics, a complementarity matrix, interface-axis metadata, and 2D/3D figures. Points with similarly oriented opposing normals are flagged as suspicious rather than silently accepted.
 
 
 

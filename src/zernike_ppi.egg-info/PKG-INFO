@@ -6,5 +6,8 @@ Requires-Python: >=3.9
 Requires-Dist: numpy>=1.23
 Requires-Dist: scipy>=1.9
 Requires-Dist: PyYAML>=6.0
+Requires-Dist: matplotlib>=3.6
 Provides-Extra: test
 Requires-Dist: pytest>=7; extra == "test"
+Provides-Extra: ui
+Requires-Dist: streamlit>=1.32; extra == "ui"

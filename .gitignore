@@ -16,6 +16,7 @@ htmlcov/
 # Scientific outputs and local caches
 tmp_run*/
 tests/_tmp_bundle/
+tests/_tmp_ui/
 results*/
 benchmark_results/
 descriptors/

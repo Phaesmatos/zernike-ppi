@@ -16,6 +16,7 @@ def main(argv=None):
     m=sub.add_parser('match'); common(m,True); m.add_argument('--top-k',type=int,default=20); m.add_argument('--channel-weight',action='append',default=[]); m.add_argument('--descriptors-a'); m.add_argument('--descriptors-b')
     v=sub.add_parser('visualize'); v.add_argument('--protein-a',required=True); v.add_argument('--protein-b',required=True); v.add_argument('--matches',required=True); v.add_argument('--rank',type=int,default=1); v.add_argument('--output',default='match.png')
     b=sub.add_parser('benchmark'); b.add_argument('--dataset'); b.add_argument('--config'); b.add_argument('--output',required=True)
+    im=sub.add_parser('interface-map'); im.add_argument('--surface-a',required=True); im.add_argument('--surface-b',required=True); im.add_argument('--interface-distance',type=float,default=3.0); im.add_argument('--patch-radius',type=float,default=6.0); im.add_argument('--sample-every',type=int,default=10); im.add_argument('--zernike-order',type=int,default=20); im.add_argument('--grid-size',type=int,default=64); im.add_argument('--grid-spacing',type=float,default=.5); im.add_argument('--axis-max-distance',type=float); im.add_argument('--output',required=True)
     args=p.parse_args(argv)
     if args.cmd=="channels":
         for n in available_channels():
@@ -52,6 +53,12 @@ def main(argv=None):
         rows=[]
         for r in csv.DictReader(open(args.dataset,newline='')): rows.append({'complex_id':r.get('complex_id',''),'status':'ranking-only','channels':'configured','ROC_AUC':'nan','PR_AUC':'nan'})
         write_summary(rows,args.output); (Path(args.output)/'config.yaml').write_text(Path(args.config).read_text() if args.config else 'ranking-only: true\n'); print(f'wrote benchmark results for {len(rows)} complexes'); return
+    if args.cmd=='interface-map':
+        from .pipeline import load_surface
+        from .interface_map import run_interface_map, write_interface_map
+        t=time.time(); sa=load_surface(args.surface_a); sb=load_surface(args.surface_b)
+        rows,meta=run_interface_map(sa,sb,args.interface_distance,args.patch_radius,args.sample_every,args.zernike_order,args.grid_size,args.grid_spacing,args.axis_max_distance)
+        write_interface_map(args.output,rows,meta,vars(args),sa,sb); print(f'wrote interface map with {len(rows)} facing patch pairs in {time.time()-t:.3f}s'); return
     names=[x.strip() for x in args.channels.split(",")]; get_channels(names); a=patch(); b=patch("concave","negative")
     from .descriptors import PatchDescriptor
     pa=PatchDescriptor(0,[0,0,0],[0,0,1],{n:zernike_descriptor(a[n]) for n in names}); pb=PatchDescriptor(0,[0,0,0],[0,0,1],{n:zernike_descriptor(b[n]) for n in names})

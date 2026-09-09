@@ -1,0 +1,2 @@
+complex_id,protein_a,protein_b
+fixture,tests/data/fixture_a.pdb,tests/data/fixture_b.pdb

@@ -1,0 +1,5 @@
+name: baseline_shape
+patches: {radius: 6.0, sample_every: 10}
+zernike: {order: 20, grid_size: 64}
+channels:
+  shape: {enabled: true, weight: 1.0}

@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "ZernikePPI"
+type: software
+authors:
+  - family-names: "Milanetti"
+    given-names: "Edoardo"
+  - family-names: "Miotto"
+    given-names: "Mattia"
+  - family-names: "Di Rienzo"
+    given-names: "Lorenzo"
+  - family-names: "Monti"
+    given-names: "Michele"
+  - family-names: "Gosti"
+    given-names: "Giorgio"
+  - family-names: "Ruocco"
+    given-names: "Giancarlo"
+version: 0.1.0
+date-released: 2026-09-09
+repository-code: "https://github.com/matmi8/Zernike2D"
+references:
+  - type: article
+    authors:
+      - family-names: "Milanetti"
+        given-names: "Edoardo"
+    title: "2D Zernike polynomial expansion: Finding the protein-protein binding regions"
+    year: 2021
+    doi: "10.1016/j.csbj.2020.11.051"

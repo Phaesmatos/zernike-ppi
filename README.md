@@ -104,6 +104,4 @@ Other representations are possible — for example Fourier-Bessel functions, pse
 
 This question has a slightly personal motivation. During the oral discussion of the original Zernike2D student project, I was asked why Zernike polynomials had been chosen over alternative representations. At the time, I had largely accepted that methodological choice as given and could not provide an answer.
 
-This continuation of the project is also an opportunity to revisit that question explicitly: to understand not only **how** the method works, but **why this representation is appropriate**, where its advantages come from, and where alternative bases might eventually perform better.
 
-In that sense, this section closes a small unfinished question from the original project.

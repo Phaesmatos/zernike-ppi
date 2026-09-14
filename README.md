@@ -105,3 +105,6 @@ Other representations are possible — for example Fourier-Bessel functions, pse
 This question has a slightly personal motivation. During the oral discussion of the original Zernike2D student project, I was asked why Zernike polynomials had been chosen over alternative representations. At the time, I had largely accepted that methodological choice as given and could not provide an answer.
 
 
+### AI use
+
+The original project is made using little/no AI agents, this version is made using codex and make it formalize the original code so it can be understandable and usable
